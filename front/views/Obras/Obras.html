@@ -105,15 +105,15 @@
         </form>
         <div class="row text-right">
             <div class="col-sm-12">
-             <button type="button" ng-click="save()" class="btn btn-success">Salvar</button>
-             <button type="button" ng-click="cancelar()" class="btn btn-danger">Cancelar</button>
-         </div>
-     </div>
- </div>
- <!-- //Form -->
+               <button type="button" ng-click="save()" class="btn btn-success">Salvar</button>
+               <button type="button" ng-click="cancelar()" class="btn btn-danger">Cancelar</button>
+           </div>
+       </div>
+   </div>
+   <!-- //Form -->
 
- <!-- Lista -->
- <table class="table table-condensed table-hover" ng-if="!editing">
+   <!-- Lista -->
+   <table class="table table-condensed table-hover" ng-if="!editing">
     <thead ng-if="obras.lenght > 0">
         <tr>
             <th>Nome</th>
@@ -161,6 +161,7 @@
 
                     <div class="col-sm-2" ng-show="{{obra.digital}}"><label>Formato:</label>{{obra.formato}}</div>
                 </div>
+                <hr>
                 <div class="row text-right">
                     <div class="col-sm-11">
                         <button type="button" ng-click="delete(obra._id, obra.categoria, obra.nome)" class="btn btn-danger">Excluir</button>
