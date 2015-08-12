@@ -1,0 +1,176 @@
+<div>
+
+    <h2>Obras</h2>
+    <h3>Aqui Você vê todas as Obras da Banda de Música</h3>
+    <button style="float:right" ng-show="!editing" type="button" class="btn btn-warning" ng-click="editing = !editing">Novo</button>
+
+    <!-- From -->
+    <div ng-if="editing === true">
+        <form>
+            <legend>Cadastro de Obras</legend>
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="Nome">Nome</label>
+                        <input type="text" class="form-control" id="Nome" placeholder="Nome da Obra" ng-model="currentObra.nome">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="Autor">Autor</label>
+                        <input type="text" class="form-control" ng-model="currentObra.autor" id="Autor" placeholder="Autor">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="Arranjista">Arranjista</label>
+                        <input type="text" class="form-control" ng-model="currentObra.arranjista" id="Arranjista" placeholder="Arranjista">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="Categoria">Categoria</label>
+                        <select name="Categoria" id="Categoria" ng-model="currentObra.categoria" class="form-control">
+                            <option ng-repeat="categoria in categorias" value="{{categoria.nome}}">{{categoria.nome}}</option>
+                        </select>
+                    </div>    
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="SubCategoria">SubCategoria</label>
+                        <select name="SubCategoria" id="SubCategoria" ng-model="currentObra.subcategoria" class="form-control">
+                            <option ng-repeat="subcategoria in subcategorias" value="{{subcategoria.nome}}">{{subcategoria.nome}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="Tonalidade">Tonalidade</label>
+                        <select name="Tonalidade" id="Tonalidade" ng-model="currentObra.tonalidade" class="form-control">
+                            <option ng-repeat="tom in tons" value="{{tom.tom}}">{{tom.tom}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="Localizacao">Localização</label>
+                        <select name="Localizacao" id="Localizacao" ng-model="currentObra.localizacao" class="form-control">
+                            <option ng-repeat="local in localizacoes" value="{{local.local}}">{{local.local}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        <label for="Tonalidade">Impresso</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="currentObra.impresso">
+                                Impresso
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        <label for="Digital">Digital</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="digital" ng-model="currentObra.digital">
+                                Digitalizado
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2" ng-if="currentObra.digital">
+                    <div class="form-group">
+                        <label for="Formato">Formato</label>
+                        <select name="Formato" id="Formato" ng-model="currentObra.formato" class="form-control">
+                            <option ng-repeat="formato in formatos" value="{{formato.fmt}}">{{formato.fmt}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>     
+        </form>
+        <div class="row text-right">
+            <div class="col-sm-12">
+             <button type="button" ng-click="save()" class="btn btn-success">Salvar</button>
+             <button type="button" ng-click="cancelar()" class="btn btn-danger">Cancelar</button>
+         </div>
+     </div>
+ </div>
+ <!-- //Form -->
+
+ <!-- Lista -->
+ <table class="table table-condensed table-hover" ng-if="!editing">
+    <thead ng-if="obras.lenght > 0">
+        <tr>
+            <th>Nome</th>
+            <th>Autor</th>
+            <th>Arranjista</th>
+            <th>Categoria</th>
+            <th>SubCategoria</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="obra in obras">
+        <tr ng-click="obra.detalhes = !obra.detalhes">
+            <td>{{obra.nome}}</td>
+            <td>{{obra.autor}}</td>
+            <td>{{obra.arranjista}}</td>
+            <td>{{obra.categoria}}</td>
+            <td>{{obra.subcategoria}}</td>
+        </tr>
+        <tr ng-if="obra.detalhes">   
+            <td colspan="5">
+                <h3>{{obra.nome}}</h3><hr>
+                <div class="row">
+                    <div class="col-sm-3"><label>Autor:</label> {{obra.autor}}</div>
+
+                    <div class="col-sm-3"><label>Arranjista:</label> {{obra.arranjista}}</div>
+
+                    <div class="col-sm-2"><label>Categoria:</label> {{obra.categoria}}</div>
+                    
+                    <div class="col-sm-3"><label>Sub Categoria:</label> {{obra.subcategoria}}</div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3"><label>Tonalidade:</label> {{obra.tonalidade}}</div>
+
+                    <div class="col-sm-3"><label>Localização:</label> {{obra.localizacao}}</div>
+
+                    <div class="col-sm-2"><label>Impresso:</label>
+                        <span ng-show="{{obra.impresso}}">Sim</span>
+                        <span ng-hide="{{obra.impresso}}">Não</span>
+                    </div>
+
+                    <div class="col-sm-2"><label>Digital:</label>
+                        <span ng-show="{{obra.digital}}">Sim</span>
+                        <span ng-hide="{{obra.digital}}">Não</span>
+                    </div>
+
+                    <div class="col-sm-2" ng-show="{{obra.digital}}"><label>Formato:</label>{{obra.formato}}</div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-sm-11">
+                        <button type="button" ng-click="delete(obra._id, obra.categoria, obra.nome)" class="btn btn-danger">Excluir</button>
+                    </div>
+                </div>
+                <br>
+                <td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- //Lista -->
+    </div>
